@@ -2,13 +2,14 @@ using System;
 
 namespace Inheritance
 {
-    public class Cessna : Vehicle
+    public class Cessna : Vehicle, IGasVehicle
     {
         public double FuelCapacity { get; set; }
+        public double CurrentTankPercentage { get; set; } = 50;
 
         public void RefuelTank()
         {
-            // method definition omitted
+            CurrentTankPercentage = 100;
         }
 
         public override void Drive()

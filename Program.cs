@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Inheritance
 {
@@ -6,49 +7,56 @@ namespace Inheritance
     {
         static void Main(string[] args)
         {
-            Zero bike = new Zero()
-            {
-                MainColor = "lime",
-                MaximumOccupancy = 2,
-                BatteryKWh = 20.8
-            };
-            Tesla car = new Tesla()
-            {
-                MainColor = "gray",
-                MaximumOccupancy = 5,
-                BatteryKWh = 40.3
-            };
-            Cessna plane = new Cessna()
-            {
-                MainColor = "white",
-                MaximumOccupancy = 12,
-                FuelCapacity = 100
-            };
-            Ram truck = new Ram()
-            {
-                MainColor = "blue",
-                MaximumOccupancy = 3,
-                FuelCapacity = 24
-            };
+            Zero fxs = new Zero();
+            Zero fx = new Zero();
+            Tesla modelS = new Tesla();
 
-            bike.Drive();
-            bike.Turn("left");
-            bike.Stop();
-            Console.WriteLine();
+            List<IElectricVehicle> electricVehicles = new List<IElectricVehicle>() {
+                fx, fxs, modelS
+              };
 
-            car.Drive();
-            car.Turn("right");
-            car.Stop();
-            Console.WriteLine();
+            Console.WriteLine("Electric Vehicles");
+            foreach (IElectricVehicle ev in electricVehicles)
+            {
+                Console.WriteLine($"{ev.CurrentChargePercentage}%");
+            }
 
-            plane.Drive();
-            plane.Turn("left");
-            plane.Stop();
-            Console.WriteLine();
+            foreach (IElectricVehicle ev in electricVehicles)
+            {
+                // This should charge the vehicle to 100%
+                ev.ChargeBattery();
+            }
 
-            truck.Drive();
-            truck.Turn("right");
-            truck.Stop();
+            foreach (IElectricVehicle ev in electricVehicles)
+            {
+                Console.WriteLine($"{ev.CurrentChargePercentage}%");
+            }
+
+            /***********************************************/
+
+            Ram ram = new Ram();
+            Cessna cessna150 = new Cessna();
+
+            List<IGasVehicle> gasVehicles = new List<IGasVehicle>() {
+                ram, cessna150
+              };
+
+            Console.WriteLine("Gas Vehicles");
+            foreach (IGasVehicle gv in gasVehicles)
+            {
+                Console.WriteLine($"{gv.CurrentTankPercentage}%");
+            }
+
+            foreach (IGasVehicle gv in gasVehicles)
+            {
+                // This should completely refuel the gas tank
+                gv.RefuelTank();
+            }
+
+            foreach (IGasVehicle gv in gasVehicles)
+            {
+                Console.WriteLine($"{gv.CurrentTankPercentage}%");
+            }
         }
     }
 }
